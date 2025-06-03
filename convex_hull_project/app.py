@@ -1,23 +1,33 @@
 import streamlit as st
-from utils.point_generator import generate_random_points
-from algorithms.graham_scan import graham_scan
-from utils.visualizer import plot_convex_hull
+import matplotlib.pyplot as plt
+from utils.algorithms import graham_scan, jarvis_march, quickhull
+import random
 
-# Başlık
-st.title("Convex Hull Algorithms Comparison Tool 🧠")
+st.title("Convex Hull Algorithm Comparison")
 
-# Nokta sayısını seç
-num_points = st.slider("Kaç tane rastgele nokta üretmek istiyorsun?", min_value=10, max_value=500, value=100)
+# Rastgele nokta üret
+def generate_points(num_points=10):
+    return [(random.randint(0, 100), random.randint(0, 100)) for _ in range(num_points)]
 
-# Noktaları üret
-points = generate_random_points(num_points)
+points = generate_points()
 
-# Butona basınca algoritmayı çalıştır
-if st.button("Graham Scan ile Konveks Kabuğu Hesapla"):
-    hull, duration = graham_scan(points)
-    st.success(f"Graham Scan algoritması {duration:.6f} saniyede tamamlandı.")
-    plot_convex_hull(points, hull, title="Graham Scan - Convex Hull")
+# Algoritma seçimi
+algorithm = st.selectbox("Choose an algorithm", ["Graham Scan", "Jarvis March", "QuickHull"])
 
-# Footer
-st.markdown("---")
-st.markdown("👨‍💻 Created by [Your Name] | Software Engineering Project")
+# Algoritmayı uygula
+if algorithm == "Graham Scan":
+    hull = graham_scan(points)
+elif algorithm == "Jarvis March":
+    hull = jarvis_march(points)
+else:
+    hull = quickhull(points)
+
+# Görselleştirme
+x_points, y_points = zip(*points)
+hx, hy = zip(*hull + [hull[0]])
+
+fig, ax = plt.subplots()
+ax.plot(x_points, y_points, 'o', label='Points')
+ax.plot(hx, hy, 'r-', label='Convex Hull')
+ax.legend()
+st.pyplot(fig)
