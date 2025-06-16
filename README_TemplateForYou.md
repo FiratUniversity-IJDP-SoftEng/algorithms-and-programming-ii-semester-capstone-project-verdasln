@@ -1,4 +1,4 @@
-# [Your Algorithm Name] - Interactive Visualization
+# Convex Hull Algorithm Comparison - Interactive Visualization
 
 ## Project Overview
 
@@ -18,10 +18,24 @@ This project is an interactive web application that implements and visualizes [A
 
 ### Algorithm Steps
 
-1. [Step 1 with explanation]
-2. [Step 2 with explanation]
-3. [Step 3 with explanation]
-...
+Terminalde Proje Dizinine Git
+
+Örneğin projen masaüstündeyse: cd ~/Desktop/CONVEX_HULL_PROJECT
+
+Sanal Ortamı (virtual environment) Aktifleştir
+Eğer önceden oluşturduysan: source venv/bin/activate yoksa; python3 -m venv venv source venv/bin/activate
+
+Gerekli Kütüphaneleri Kur
+
+requirements.txt dosyan varsa:
+
+pip install -r requirements.txt
+
+Streamlit Uygulamasını Başlat
+
+Proje kök dizininde şu komutu yaz:
+
+streamlit run app.py
 
 ### Pseudocode
 
